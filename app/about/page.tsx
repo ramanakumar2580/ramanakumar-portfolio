@@ -35,7 +35,6 @@ const techStack = [
 
 export default function AboutPage() {
   return (
-    // The root div no longer has 'min-h-screen'.
     <div className="w-full flex items-start justify-center py-12">
       <motion.div
         className="max-w-4xl w-full mx-auto pt-16 pb-8 px-6 space-y-16"
@@ -44,16 +43,16 @@ export default function AboutPage() {
         transition={{ duration: 0.8 }}
       >
         <section>
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-8">
+          <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-8">
             <div className="text-left">
-              <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold text-white whitespace-nowrap">
+              <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold text-black dark:text-white whitespace-nowrap">
                 Manupati Ramana Kumar
               </h1>
-              <p className="mt-2 text-base sm:text-lg text-blue-400">
+              <p className="mt-2 text-base sm:text-lg text-blue-600 dark:text-blue-400">
                 Full Stack Developer
               </p>
-              <hr className="my-6 border-gray-700" />
-              <p className="text-sm sm:text-base text-neutral-400 max-w-4xl leading-relaxed">
+              <hr className="my-6 border-gray-200 dark:border-gray-700" />
+              <p className="text-sm sm:text-base text-gray-600 dark:text-neutral-400 max-w-4xl leading-relaxed">
                 As a Full-Stack Developer, I specialize in transforming ideas
                 into high-performance web applications. I can architect and
                 build entire systems from the ground up—from creating responsive
@@ -92,22 +91,22 @@ export default function AboutPage() {
           </div>
         </section>
         <section>
-          <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-10">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center text-black dark:text-white mb-10">
             Experience
           </h2>
-          <div className="p-6 sm:p-8 bg-gray-900 rounded-lg border border-gray-800">
+          <div className="p-6 sm:p-8 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
             <div className="flex flex-col sm:flex-row justify-between sm:items-start mb-2">
-              <h3 className="text-lg sm:text-xl font-semibold text-blue-400">
+              <h3 className="text-lg sm:text-xl font-semibold text-blue-600 dark:text-blue-400">
                 Full Stack Developer Intern
               </h3>
-              <p className="text-xs sm:text-sm text-neutral-400 mt-1 sm:mt-0 flex-shrink-0">
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-neutral-400 mt-1 sm:mt-0 flex-shrink-0">
                 Sep 2024 - Dec 2024
               </p>
             </div>
-            <p className="text-sm sm:text-base text-neutral-300 mb-4">
+            <p className="text-sm sm:text-base text-gray-700 dark:text-neutral-300 mb-4">
               YEBSYS - Coimbatore, Tamil Nadu
             </p>
-            <ul className="list-disc list-outside space-y-2 text-sm text-neutral-400 pl-5">
+            <ul className="list-disc list-outside space-y-2 text-sm text-gray-600 dark:text-neutral-400 pl-5">
               <li>
                 Built a UPI/card-integrated payment platform using TypeScript +
                 Next.js, increasing transaction by 20%.
@@ -124,10 +123,10 @@ export default function AboutPage() {
           </div>
         </section>
         <section>
-          <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-10">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center text-black dark:text-white mb-10">
             Tech Stack
           </h2>
-          <div className="p-6 sm:p-8 bg-gray-900 rounded-lg border border-gray-800">
+          <div className="p-6 sm:p-8 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-y-8">
               {techStack.map((tech) => (
                 <div
@@ -135,8 +134,10 @@ export default function AboutPage() {
                   className="flex flex-col items-center justify-start gap-2 text-center"
                   title={tech.name}
                 >
-                  <div className="text-4xl">{tech.icon}</div>
-                  <span className="text-xs text-neutral-400 h-8">
+                  <div className="text-4xl text-gray-800 dark:text-neutral-300">
+                    {tech.icon}
+                  </div>
+                  <span className="text-xs text-gray-500 dark:text-neutral-400 h-8">
                     {tech.name}
                   </span>
                 </div>

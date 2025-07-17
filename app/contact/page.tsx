@@ -1,4 +1,3 @@
-// app/contact/page.tsx (Final Wider Version)
 "use client";
 
 import { useState } from "react";
@@ -50,15 +49,15 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black flex items-start justify-center pt-32 pb-20 px-4">
+    // Updated for Light/Dark Mode
+    <div className="w-full flex items-start justify-center pt-32 pb-20 px-4">
       <motion.div
-        // The change is here: Increased max-width from 3xl to 4xl.
         className="max-w-4xl w-full"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 md:p-12">
+        <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-8 md:p-12">
           <div className="text-left">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -68,15 +67,17 @@ export default function ContactPage() {
               fill="none"
               stroke="currentColor"
               strokeWidth="1"
-              className="text-neutral-500 mb-4"
+              className="text-gray-400 dark:text-neutral-500 mb-4"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
               <polyline points="22,6 12,13 2,6"></polyline>
             </svg>
-            <h1 className="text-4xl font-bold text-white">Contact Me</h1>
-            <p className="mt-2 text-neutral-400">
+            <h1 className="text-4xl font-bold text-black dark:text-white">
+              Contact Me
+            </h1>
+            <p className="mt-2 text-gray-600 dark:text-neutral-400">
               Have a question or want to work together? Fill out the form below
               and I will get back to you as soon as possible.
             </p>
@@ -94,7 +95,7 @@ export default function ContactPage() {
                   id="name"
                   required
                   placeholder="Your Name"
-                  className="w-full bg-gray-800 border border-gray-700 text-white rounded-md px-4 py-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                  className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-black dark:text-white rounded-md px-4 py-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                 />
               </div>
               <div>
@@ -107,7 +108,7 @@ export default function ContactPage() {
                   id="email"
                   required
                   placeholder="Your email address"
-                  className="w-full bg-gray-800 border border-gray-700 text-white rounded-md px-4 py-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                  className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-black dark:text-white rounded-md px-4 py-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                 />
               </div>
             </div>
@@ -121,7 +122,7 @@ export default function ContactPage() {
                 required
                 rows={5}
                 placeholder="Your Message"
-                className="w-full bg-gray-800 border border-gray-700 text-white rounded-md px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-black dark:text-white rounded-md px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
               ></textarea>
             </div>
             <div>
@@ -133,7 +134,7 @@ export default function ContactPage() {
               </button>
             </div>
             {status && (
-              <p className="text-center text-sm text-neutral-400 mt-4">
+              <p className="text-center text-sm text-gray-500 dark:text-neutral-400 mt-4">
                 {status}
               </p>
             )}

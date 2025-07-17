@@ -1,18 +1,18 @@
 export function Footer() {
   return (
-    <footer className="w-full border-t border-gray-800 mt-auto">
-      {/* max-w-6xl makes the container narrower, moving the elements closer together */}
+    // Updated border color for light/dark modes
+    <footer className="w-full border-t border-gray-200 dark:border-gray-800 mt-auto bg-white dark:bg-black">
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 py-6 px-6">
-        <p className="text-sm text-gray-500">
-          {/* Using an em dash (&mdash;) instead of three hyphens */}© 2025
-          &mdash; Built by Ramanakumar ❤️
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+          © 2025 &mdash; Built by Ramanakumar ❤️
         </p>
         <div className="flex items-center space-x-5">
+          {/* Updated icon colors for light/dark modes */}
           <a
             href="https://github.com/ramanakumar2580"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-white transition-colors"
+            className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,7 @@ export function Footer() {
             href="https://www.linkedin.com/in/manupatiramanakumar/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-white transition-colors"
+            className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@ export function Footer() {
             href="https://x.com/RamanaManupati"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-white transition-colors"
+            className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
