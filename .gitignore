@@ -1,0 +1,11 @@
+# Next.js
+.next/
+out/
+
+# Logs and system files
+*.log
+.DS_Store
+
+# Env & other secrets
+.env.local
+node_modules
