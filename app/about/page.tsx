@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import {
   FaReact,
   FaNodeJs,
@@ -17,6 +17,7 @@ import {
   SiPostgresql,
   SiVercel,
 } from "react-icons/si";
+import ScrollReveal from "@/app/components/ScrollReveal";
 
 const techStack = [
   { name: "JavaScript", icon: <SiJavascript className="text-yellow-400" /> },
@@ -33,26 +34,65 @@ const techStack = [
   { name: "Git", icon: <FaGitAlt className="text-orange-600" /> },
 ];
 
+const experience = {
+  title: "Full Stack Developer Intern",
+  company: "YEBSYS",
+  location: "Coimbatore, Tamil Nadu",
+  date: "Sep 2024 - Dec 2024",
+  points: [
+    "Built a UPI/card-integrated payment platform using TypeScript + Next.js, increasing transaction by 20%.",
+    "Reduced UI load time by 35% through responsive optimization with Tailwind CSS and lazy loading.",
+    "Implemented Dockerized webhooks and established CI/CD pipelines via GitHub Actions.",
+  ],
+};
+
+const staggerContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const staggerItem: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+
 export default function AboutPage() {
   return (
-    <div className="w-full flex items-start justify-center py-12">
-      <motion.div
-        className="max-w-4xl w-full mx-auto pt-16 pb-8 px-6 space-y-16"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <section>
-          <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-8">
+    <div className="w-full flex items-start justify-center pt-24 pb-16">
+      <div className="max-w-4xl w-full mx-auto px-4 space-y-20">
+        <ScrollReveal>
+          <motion.section
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl shadow-lg p-8"
+          >
             <div className="text-left">
-              <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold text-black dark:text-white whitespace-nowrap">
+              <motion.h1
+                variants={staggerItem}
+                className="text-3xl lg:text-4xl font-bold text-black dark:text-white"
+              >
                 Manupati Ramana Kumar
-              </h1>
-              <p className="mt-2 text-base sm:text-lg text-blue-600 dark:text-blue-400">
+              </motion.h1>
+              <motion.p
+                variants={staggerItem}
+                className="mt-2 text-lg text-blue-600 dark:text-blue-400 font-semibold"
+              >
                 Full Stack Developer
-              </p>
-              <hr className="my-6 border-gray-200 dark:border-gray-700" />
-              <p className="text-sm sm:text-base text-gray-600 dark:text-neutral-400 max-w-4xl leading-relaxed">
+              </motion.p>
+              <motion.hr
+                variants={staggerItem}
+                className="my-6 border-gray-300 dark:border-neutral-800"
+              />
+              <motion.p
+                variants={staggerItem}
+                className="text-base text-gray-700 dark:text-neutral-300 max-w-4xl leading-relaxed"
+              >
                 As a Full-Stack Developer, I specialize in transforming ideas
                 into high-performance web applications. I can architect and
                 build entire systems from the ground up—from creating responsive
@@ -62,13 +102,17 @@ export default function AboutPage() {
                 integrating cutting-edge AI like the GPT-4 API to build
                 intelligent, modern solutions. I am passionate about writing
                 clean code and creating user-friendly experiences.
-              </p>
-              <div className="mt-8">
-                <a
+              </motion.p>
+              <motion.div variants={staggerItem} className="mt-8">
+                <motion.a
                   href="/RamanaKumar-fullstack.pdf"
                   download
-                  className="inline-flex items-center gap-2 px-6 py-3 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                  className="group relative inline-flex items-center gap-2 px-6 py-3 font-semibold text-white rounded-xl shadow-lg bg-gray-800 hover:bg-gray-700 transition-colors duration-300 overflow-hidden"
                 >
+                  <div className="absolute top-0 left-[-100%] h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:left-[100%] transition-all duration-700" />
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -85,67 +129,90 @@ export default function AboutPage() {
                     <line x1="12" y1="15" x2="12" y2="3" />
                   </svg>
                   Download Resume
-                </a>
+                </motion.a>
+              </motion.div>
+            </div>
+          </motion.section>
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <section>
+            <h2 className="text-3xl font-bold text-center text-black dark:text-white mb-12">
+              Experience
+            </h2>
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="p-8 bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl shadow-lg"
+            >
+              <motion.div
+                variants={staggerItem}
+                className="flex flex-col sm:flex-row justify-between sm:items-start mb-2"
+              >
+                <h3 className="text-xl font-semibold text-blue-600 dark:text-blue-400">
+                  {experience.title}
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-neutral-400 mt-1 sm:mt-0 flex-shrink-0">
+                  {experience.date}
+                </p>
+              </motion.div>
+              <motion.p
+                variants={staggerItem}
+                className="text-base text-gray-700 dark:text-neutral-300 mb-4"
+              >
+                {experience.company} - {experience.location}
+              </motion.p>
+              <motion.ul
+                variants={staggerContainer}
+                className="list-disc list-outside space-y-3 text-sm text-gray-600 dark:text-neutral-400 pl-5"
+              >
+                {experience.points.map((point, index) => (
+                  <motion.li key={index} variants={staggerItem}>
+                    {point}
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </motion.div>
+          </section>
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <section>
+            <h2 className="text-3xl font-bold text-center text-black dark:text-white mb-12">
+              Tech Stack
+            </h2>
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="p-8 bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl shadow-lg"
+            >
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-y-8">
+                {techStack.map((tech) => (
+                  <motion.div
+                    key={tech.name}
+                    variants={staggerItem}
+                    whileHover={{ scale: 1.15, rotate: -5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    className="flex flex-col items-center justify-start gap-2 text-center"
+                    title={tech.name}
+                  >
+                    <div className="text-4xl text-gray-800 dark:text-neutral-300">
+                      {tech.icon}
+                    </div>
+                    <span className="text-xs text-gray-500 dark:text-neutral-400 h-8">
+                      {tech.name}
+                    </span>
+                  </motion.div>
+                ))}
               </div>
-            </div>
-          </div>
-        </section>
-        <section>
-          <h2 className="text-2xl sm:text-3xl font-bold text-center text-black dark:text-white mb-10">
-            Experience
-          </h2>
-          <div className="p-6 sm:p-8 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
-            <div className="flex flex-col sm:flex-row justify-between sm:items-start mb-2">
-              <h3 className="text-lg sm:text-xl font-semibold text-blue-600 dark:text-blue-400">
-                Full Stack Developer Intern
-              </h3>
-              <p className="text-xs sm:text-sm text-gray-500 dark:text-neutral-400 mt-1 sm:mt-0 flex-shrink-0">
-                Sep 2024 - Dec 2024
-              </p>
-            </div>
-            <p className="text-sm sm:text-base text-gray-700 dark:text-neutral-300 mb-4">
-              YEBSYS - Coimbatore, Tamil Nadu
-            </p>
-            <ul className="list-disc list-outside space-y-2 text-sm text-gray-600 dark:text-neutral-400 pl-5">
-              <li>
-                Built a UPI/card-integrated payment platform using TypeScript +
-                Next.js, increasing transaction by 20%.
-              </li>
-              <li>
-                Reduced UI load time by 35% through responsive optimization with
-                Tailwind CSS and lazy loading.
-              </li>
-              <li>
-                Implemented Dockerized webhooks and established CI/CD pipelines
-                via GitHub Actions.
-              </li>
-            </ul>
-          </div>
-        </section>
-        <section>
-          <h2 className="text-2xl sm:text-3xl font-bold text-center text-black dark:text-white mb-10">
-            Tech Stack
-          </h2>
-          <div className="p-6 sm:p-8 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-y-8">
-              {techStack.map((tech) => (
-                <div
-                  key={tech.name}
-                  className="flex flex-col items-center justify-start gap-2 text-center"
-                  title={tech.name}
-                >
-                  <div className="text-4xl text-gray-800 dark:text-neutral-300">
-                    {tech.icon}
-                  </div>
-                  <span className="text-xs text-gray-500 dark:text-neutral-400 h-8">
-                    {tech.name}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </motion.div>
+            </motion.div>
+          </section>
+        </ScrollReveal>
+      </div>
     </div>
   );
 }

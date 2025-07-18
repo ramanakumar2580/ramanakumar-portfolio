@@ -1,17 +1,14 @@
-import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "./components/shared/Navbar";
-import { Footer } from "./components/shared/Footer";
-import { ThemeProvider } from "next-themes";
+import { Providers } from "@/app/components/providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Manupati Ramana Kumar | Full-Stack Developer",
+  title: "Manupati Ramana Kumar | 3D Full-Stack Portfolio",
   description:
-    "Portfolio of Manupati Ramana Kumar, a Full Stack Developer skilled in JavaScript/TypeScript, React, Next.js, and Node.js.",
+    "An interactive 3D portfolio of Manupati Ramana Kumar, a Full Stack Developer skilled in JavaScript/TypeScript, React, Next.js, and Node.js.",
 };
 
 export default function RootLayout({
@@ -22,18 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.className} bg-white dark:bg-black text-neutral-800 dark:text-neutral-200 antialiased`}
+        className={`${inter.className} text-neutral-800 dark:text-neutral-200 antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-1">
-              {children}
-              <Analytics />
-            </main>
-            <Footer />
-          </div>
-        </ThemeProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

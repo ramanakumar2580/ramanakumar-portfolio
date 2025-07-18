@@ -1,23 +1,22 @@
 export function Footer() {
   return (
-    // Updated border color for light/dark modes
-    <footer className="w-full border-t border-gray-200 dark:border-gray-800 mt-auto bg-white dark:bg-black">
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 py-6 px-6">
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+    <footer className="w-full px-3 py-2">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+        <p className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
           © 2025 &mdash; Built by Ramanakumar ❤️
         </p>
-        <div className="flex items-center space-x-5">
-          {/* Updated icon colors for light/dark modes */}
+
+        <div className="flex items-center space-x-1">
           <a
             href="https://github.com/ramanakumar2580"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors"
+            aria-label="GitHub"
+            className="p-2 rounded-full text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300"
           >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
+              /* GitHub Icon */ width="18"
+              height="18"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -32,12 +31,12 @@ export function Footer() {
             href="https://www.linkedin.com/in/manupatiramanakumar/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors"
+            aria-label="LinkedIn"
+            className="p-2 rounded-full text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300"
           >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
+              /* LinkedIn Icon */ width="18"
+              height="18"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -54,12 +53,12 @@ export function Footer() {
             href="https://x.com/RamanaManupati"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors"
+            aria-label="X"
+            className="p-2 rounded-full text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300"
           >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
+              /* X Icon */ width="18"
+              height="18"
               viewBox="0 0 24 24"
               fill="currentColor"
             >

@@ -1,7 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
+
+const staggerContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const staggerItem: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
 
 export default function ContactPage() {
   const [status, setStatus] = useState("");
@@ -45,20 +67,20 @@ export default function ContactPage() {
       if (submitButton) {
         submitButton.removeAttribute("disabled");
       }
+      setTimeout(() => setStatus(""), 5000); // Clear status after 5 seconds
     }
   }
 
   return (
-    // Updated for Light/Dark Mode
-    <div className="w-full flex items-start justify-center pt-32 pb-20 px-4">
-      <motion.div
-        className="max-w-4xl w-full"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-8 md:p-12">
-          <div className="text-left">
+    <div className="w-full flex items-start justify-center pt-24 pb-16">
+      <div className="max-w-4xl w-full mx-auto px-4">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+          className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl shadow-lg p-8 md:p-12"
+        >
+          <motion.div variants={staggerItem} className="text-left">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="36"
@@ -67,7 +89,7 @@ export default function ContactPage() {
               fill="none"
               stroke="currentColor"
               strokeWidth="1"
-              className="text-gray-400 dark:text-neutral-500 mb-4"
+              className="text-gray-800 dark:text-white mb-4"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -81,11 +103,15 @@ export default function ContactPage() {
               Have a question or want to work together? Fill out the form below
               and I will get back to you as soon as possible.
             </p>
-          </div>
+          </motion.div>
 
-          <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+          <motion.form
+            variants={staggerContainer}
+            onSubmit={handleSubmit}
+            className="mt-8 space-y-6"
+          >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
+              <motion.div variants={staggerItem}>
                 <label htmlFor="name" className="sr-only">
                   Your Name
                 </label>
@@ -95,10 +121,10 @@ export default function ContactPage() {
                   id="name"
                   required
                   placeholder="Your Name"
-                  className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-black dark:text-white rounded-md px-4 py-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                  className="w-full bg-white/50 dark:bg-black/20 border border-gray-300 dark:border-neutral-700 text-black dark:text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-black/50 dark:focus:ring-white/50 focus:border-black/50 dark:focus:border-white/50 outline-none transition-all"
                 />
-              </div>
-              <div>
+              </motion.div>
+              <motion.div variants={staggerItem}>
                 <label htmlFor="email" className="sr-only">
                   Your email address
                 </label>
@@ -108,11 +134,11 @@ export default function ContactPage() {
                   id="email"
                   required
                   placeholder="Your email address"
-                  className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-black dark:text-white rounded-md px-4 py-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                  className="w-full bg-white/50 dark:bg-black/20 border border-gray-300 dark:border-neutral-700 text-black dark:text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-black/50 dark:focus:ring-white/50 focus:border-black/50 dark:focus:border-white/50 outline-none transition-all"
                 />
-              </div>
+              </motion.div>
             </div>
-            <div>
+            <motion.div variants={staggerItem}>
               <label htmlFor="message" className="sr-only">
                 Your Message
               </label>
@@ -122,25 +148,29 @@ export default function ContactPage() {
                 required
                 rows={5}
                 placeholder="Your Message"
-                className="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-black dark:text-white rounded-md px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                className="w-full bg-white/50 dark:bg-black/20 border border-gray-300 dark:border-neutral-700 text-black dark:text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-black/50 dark:focus:ring-white/50 focus:border-black/50 dark:focus:border-white/50 outline-none transition-all"
               ></textarea>
-            </div>
-            <div>
-              <button
+            </motion.div>
+            <motion.div variants={staggerItem}>
+              <motion.button
                 type="submit"
-                className="w-full px-6 py-4 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                className="group relative w-full px-6 py-3 font-semibold text-white bg-gray-800 rounded-xl shadow-lg hover:bg-gray-700 transition-colors duration-300 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
               >
+                <div className="absolute top-0 left-[-100%] h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:left-[100%] transition-all duration-700" />
                 Submit
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
             {status && (
               <p className="text-center text-sm text-gray-500 dark:text-neutral-400 mt-4">
                 {status}
               </p>
             )}
-          </form>
-        </div>
-      </motion.div>
+          </motion.form>
+        </motion.div>
+      </div>
     </div>
   );
 }
