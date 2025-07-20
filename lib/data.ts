@@ -44,7 +44,7 @@ export const projectsData = [
     tags: ["React", "Tailwind CSS", "Node.js", "JWT"],
   },
   {
-    title: "Arogya For All (Health Vault)",
+    title: "Arogya (Health Vault)",
     slug: "atop-health-vault",
     description:
       "A secure digital health platform for managing medical records and connecting patients with doctors.",

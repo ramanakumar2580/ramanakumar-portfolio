@@ -74,10 +74,10 @@ export default function AboutPage() {
           className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl shadow-lg p-8"
         >
           <div className="text-left">
-            <h1 className="text-3xl lg:text-4xl font-bold text-black dark:text-white">
+            <h1 className="text-xl lg:text-4xl font-bold text-black dark:text-white">
               Manupati Ramana Kumar
             </h1>
-            <p className="mt-2 text-lg text-blue-600 dark:text-blue-400 font-semibold">
+            <p className="mt-2 text-m text-blue-600 dark:text-blue-400 font-semibold">
               Full Stack Developer
             </p>
             <hr className="my-6 border-gray-300 dark:border-neutral-800" />

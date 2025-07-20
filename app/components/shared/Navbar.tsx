@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
@@ -47,10 +48,16 @@ export function Navbar() {
             : "bg-transparent border-transparent"
         }`}
       >
-        <Link href="/" className="text-black dark:text-white font-bold text-lg">
-          RamanaKumar
+        <Link href="/" aria-label="Homepage" className="flex">
+          <Image
+            src="/images/Logo.png"
+            alt="Ramana Kumar"
+            width={50}
+            height={50}
+            className="invert dark:invert-0"
+            priority
+          />
         </Link>
-
         <div className="hidden md:flex items-center gap-2">
           {navItems.map((item) => (
             <Link
@@ -83,12 +90,12 @@ export function Navbar() {
             {contactItem.name}
           </Link>
         </div>
-
         <div className="flex items-center md:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
             type="button"
             className="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-black/20 focus:outline-none transition-colors"
+            aria-controls="mobile-menu"
           >
             <span className="sr-only">Open main menu</span>
             {isOpen ? (
@@ -123,7 +130,6 @@ export function Navbar() {
           </button>
         </div>
       </nav>
-
       {isOpen && (
         <div className="md:hidden mt-2 max-w-7xl mx-auto">
           <div className="px-2 pt-2 pb-3 space-y-1 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-neutral-800 shadow-lg">
