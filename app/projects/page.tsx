@@ -1,11 +1,38 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  Variants,
+} from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { projectsData } from "@/lib/data";
-import ScrollReveal from "@/app/components/ScrollReveal";
 import { useRef } from "react";
+
+const pageContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
 
 function ProjectCard({ project }: { project: (typeof projectsData)[0] }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -42,6 +69,7 @@ function ProjectCard({ project }: { project: (typeof projectsData)[0] }) {
       onMouseLeave={handleMouseLeave}
       style={{ x: magneticX, y: magneticY }}
       className="relative group"
+      variants={itemVariants}
     >
       <Link href={`/projects/${project.slug}`} className="block">
         <div className="relative bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl shadow-lg h-full overflow-hidden transition-all duration-300 group-hover:border-white/40 group-hover:dark:border-white/20 group-hover:shadow-2xl">
@@ -55,7 +83,6 @@ function ProjectCard({ project }: { project: (typeof projectsData)[0] }) {
               ),
             }}
           />
-
           <div className="relative w-full h-48">
             <Image
               src={project.image}
@@ -90,24 +117,30 @@ const height = 400;
 export default function ProjectsPage() {
   return (
     <div className="w-full pt-24 pb-16">
-      <div className="max-w-7xl mx-auto px-4">
-        <ScrollReveal className="text-center mb-16">
+      <motion.div
+        className="max-w-7xl mx-auto px-4"
+        variants={pageContainerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.div variants={itemVariants} className="text-center mb-16">
           <h1 className="text-5xl font-bold text-black dark:text-white">
             My Projects
           </h1>
           <p className="mt-4 text-lg text-gray-600 dark:text-neutral-400">
             A selection of my work. Feel free to explore.
           </p>
-        </ScrollReveal>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          variants={pageContainerVariants}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {projectsData.map((project) => (
-            <ScrollReveal key={project.title}>
-              <ProjectCard project={project} />
-            </ScrollReveal>
+            <ProjectCard key={project.title} project={project} />
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }
