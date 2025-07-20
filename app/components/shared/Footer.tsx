@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className="w-full px-3 py-2">
+    <footer className="w-full px-3 py-2 border-t border-black/10 dark:border-white/10">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
         <p className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
           © 2025 &mdash; Built by Ramanakumar ❤️
