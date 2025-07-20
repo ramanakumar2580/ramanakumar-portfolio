@@ -1,10 +1,8 @@
-// app/sitemap.ts
-
 import { MetadataRoute } from "next";
-import { projectsData } from "@/lib/data"; // This import is the key fix
+import { projectsData } from "@/lib/data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://ramanakumar-portfolio.vercel.app";
+  const baseUrl = "https://ramanakumar-portfolio.vercel.app/";
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
