@@ -45,7 +45,6 @@ function ProjectCard({ project }: { project: (typeof projectsData)[0] }) {
     >
       <Link href={`/projects/${project.slug}`} className="block">
         <div className="relative bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl shadow-lg h-full overflow-hidden transition-all duration-300 group-hover:border-white/40 group-hover:dark:border-white/20 group-hover:shadow-2xl">
-          {/* Spotlight Effect */}
           <motion.div
             className="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
             style={{
@@ -85,7 +84,6 @@ function ProjectCard({ project }: { project: (typeof projectsData)[0] }) {
   );
 }
 
-// Dummy width and height for the spring transform calculation
 const width = 400;
 const height = 400;
 

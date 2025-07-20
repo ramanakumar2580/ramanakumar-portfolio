@@ -27,7 +27,6 @@ export function Navbar() {
 
   const contactItem = { name: "Contact", href: "/contact" };
 
-  // This function now handles the active link logic correctly
   const isActive = (href: string) => {
     if (href === "/") {
       return pathname === href;

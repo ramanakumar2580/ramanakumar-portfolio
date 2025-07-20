@@ -2,9 +2,8 @@
 
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
-const headlineText = "Hello there! I'm Ramana Kumar.";
+const headlineText = "Hello there! I'm Ramana Kumar";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -45,17 +44,8 @@ const itemVariants: Variants = {
 };
 
 export default function HomePage() {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-  if (!isMounted) {
-    return null;
-  }
-
   return (
-    <div className="flex items-center justify-center w-full min-h-screen px-4 bg-white dark:bg-[#0a0a0a]">
+    <div className="flex items-center justify-center w-full min-h-screen px-4">
       <motion.div
         className="max-w-5xl text-left"
         variants={containerVariants}
@@ -63,7 +53,7 @@ export default function HomePage() {
         animate="visible"
       >
         <motion.h1
-          className="text-xl sm:text-xl md:text-5xl lg:text-6xl font-bold text-black dark:text-white leading-tight [text-shadow:1px_1px_2px_rgba(0,0,0,0.1)] dark:[text-shadow:0_0_8px_rgba(255,255,255,0.2)]"
+          className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black dark:text-white leading-tight [text-shadow:1px_1px_2px_rgba(0,0,0,0.1)] dark:[text-shadow:0_0_8px_rgba(255,255,255,0.2)]"
           aria-label={headlineText}
         >
           {headlineText.split(" ").map((word, index) => (

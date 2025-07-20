@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import { motion, Variants } from "framer-motion";
 import ScrollReveal from "@/app/components/ScrollReveal";
 
-// Animation Variants
 const staggerContainer: Variants = {
   hidden: {},
   visible: {
@@ -46,7 +45,6 @@ export default function ProjectDetailPage() {
 
   return (
     <>
-      {/* --- Floating Back Arrow (hidden on mobile) --- */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -96,11 +94,10 @@ export default function ProjectDetailPage() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            {/* --- Header --- */}
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8 text-left">
               <motion.h1
                 variants={staggerItem}
-                className="text-3xl sm:text-3xl font-bold text-black dark:text-white leading-tight flex-shrink-0"
+                className="text-3xl sm:text-4xl font-bold text-black dark:text-white leading-tight flex-shrink-0"
               >
                 {project.title}
               </motion.h1>
