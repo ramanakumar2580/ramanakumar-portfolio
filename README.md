@@ -4,7 +4,7 @@ This repository contains the source code for my personal portfolio website, buil
 
 **Live Site**: [ramanakumar-portfolio.vercel.app](https://ramanakumar-portfolio.vercel.app)
 
-##  Features
+## Features
 
 - **Fully Responsive Design**  
   A clean, professional, and mobile-first user interface that looks great on all devices.
@@ -38,28 +38,37 @@ This repository contains the source code for my personal portfolio website, buil
 To set up and run this project locally:
 
 ### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/ramanakumar2580/ramanakumar-portfolio.git
 ```
+
 ```bash
 cd ramanakumar-portfolio
 ```
 
 ### 2. Install Dependencies
+
 - Make sure you have Node.js installed
+
 ```bash
 npm install
 ```
 
 ### 3. Set up Environment Variables
+
 - Create a file named .env.local in the root of the project and add the following variable. This is required to make the contact form work.
+
 ```bash
 RESEND_API_KEY=your_api_key_here
 ```
+
 - You can get a free API key from Resend.com.
 
 ## 4. Run the Development Server
+
 ```bash
 npm run dev
 ```
+
 - Open http://localhost:3000 in your browser to view the site.
