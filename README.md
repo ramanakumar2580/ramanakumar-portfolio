@@ -1,4 +1,4 @@
-# Manupati Ramana Kumar – Full-Stack Developer Portfolio
+# Manupati Ramana Kumar – Full-Stack Developer Portfolio & Blockchain Developer
 
 This repository contains the source code for my personal portfolio website, built from the ground up with a modern, professional tech stack to showcase my skills and projects.
 
