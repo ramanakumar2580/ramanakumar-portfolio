@@ -69,7 +69,7 @@ export default function HomePage() {
           <p className="mt-6 text-base md:text-lg text-gray-600 dark:text-neutral-400 leading-relaxed">
             I&apos;m a{" "}
             <span className="text-black dark:text-white font-medium bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded-md">
-              Full-Stack Developer
+              Full-Stack Developer & Blockchain Developer
             </span>{" "}
             with a passion for building scalable, cloud-native web applications
             that can impact millions of lives.
