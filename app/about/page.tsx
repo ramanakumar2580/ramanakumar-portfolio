@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
+import { BiSolidHardHat } from "react-icons/bi";
 import {
   FaReact,
   FaNodeJs,
@@ -16,6 +17,8 @@ import {
   SiJavascript,
   SiPostgresql,
   SiVercel,
+  SiSolidity,
+  SiEthereum,
 } from "react-icons/si";
 
 const techStack = [
@@ -24,6 +27,9 @@ const techStack = [
   { name: "React", icon: <FaReact className="text-sky-500" /> },
   { name: "Next.js", icon: <SiNextdotjs /> },
   { name: "Node.js", icon: <FaNodeJs className="text-green-500" /> },
+  { name: "Solidity", icon: <SiSolidity /> },
+  { name: "Ethereum", icon: <SiEthereum className="text-gray-400" /> },
+  { name: "Hardhat", icon: <BiSolidHardHat className="text-yellow-500" /> },
   { name: "PostgreSQL", icon: <SiPostgresql className="text-blue-400" /> },
   { name: "Python", icon: <FaPython className="text-yellow-500" /> },
   { name: "Tailwind CSS", icon: <SiTailwindcss className="text-teal-500" /> },
@@ -78,21 +84,22 @@ export default function AboutPage() {
               Manupati Ramana Kumar
             </h1>
             <p className="mt-2 text-m text-blue-600 dark:text-blue-400 font-semibold">
-              Full Stack Developer
+              Full Stack & Blockchain Developer
             </p>
             <hr className="my-6 border-gray-300 dark:border-neutral-800" />
             <p className="text-base text-gray-700 dark:text-neutral-300 max-w-4xl leading-relaxed">
-              As a Full-Stack Developer, I specialize in transforming ideas into
-              high-performance web applications. I can architect and build
-              entire systems from the ground up—from creating responsive user
-              interfaces with React and Next.js to engineering robust backends
-              with Node.js and PostgreSQL. My expertise includes streamlining
-              DevOps pipelines with Docker and CI/CD, and integrating
-              cutting-edge AI like the GPT-4 API to build intelligent, modern
-              solutions. I am passionate about writing clean code and creating
-              user-friendly experiences.
+              As a versatile developer, I specialize in transforming ideas into
+              high-performance web and decentralized applications. I architect
+              and build entire systems from the ground up—from creating
+              responsive user interfaces with React and Next.js to engineering
+              robust backends with Node.js. In the Web3 space, I design and
+              deploy secure smart contracts using Solidity and Hardhat, and
+              build intuitive dApp frontends with Ethers.js, wagmi, and
+              RainbowKit. My expertise includes streamlining DevOps with Docker
+              and CI/CD to deliver intelligent, modern solutions.
             </p>
-            <div className="mt-8">
+            {/* --- UPDATED RESUME BUTTONS --- */}
+            <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <motion.a
                 href="/RamanaKumar-fullstack.pdf"
                 download
@@ -117,7 +124,33 @@ export default function AboutPage() {
                   <polyline points="7 10 12 15 17 10" />
                   <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
-                Download Resume
+                Full Stack Resume
+              </motion.a>
+              <motion.a
+                href="/RamanaKumar-blockchain.pdf"
+                download
+                whileHover={{ scale: 1.05, y: -5 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                className="group relative inline-flex items-center gap-2 px-6 py-3 font-semibold text-white rounded-xl shadow-lg bg-blue-600 hover:bg-blue-700 transition-colors duration-300 overflow-hidden"
+              >
+                <div className="absolute top-0 left-[-100%] h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:left-[100%] transition-all duration-700" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Blockchain Resume
               </motion.a>
             </div>
           </div>
