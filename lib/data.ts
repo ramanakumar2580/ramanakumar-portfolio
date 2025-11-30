@@ -1,5 +1,24 @@
 export const projectsData = [
   {
+    title: "TaskGlyph",
+    slug: "taskglyph",
+    description:
+      "A next-gen 'Local-First' workspace that combines tasks, notes, and focus timers—engineered to work 100% offline.",
+    longDescription:
+      "TaskGlyph represents a paradigm shift from standard cloud-dependent apps to a robust 'Local-First' architecture. Unlike traditional tools like Notion or Trello that freeze without an internet connection, TaskGlyph treats the user's device as the primary source of truth, leveraging IndexedDB via Dexie.js to ensure zero-latency interactions and total offline availability. Behind the scenes, a custom-engineered synchronization engine queues every user action locally and intelligently flushes them to a PostgreSQL database once connectivity is restored, handling complex conflict resolution automatically. By integrating a Pomodoro timer directly into the task workflow and prioritizing privacy through local storage, TaskGlyph solves both 'app switching fatigue' and the reliability issues inherent in modern web development.",
+    image: "/images/project-taskglyph.png",
+    liveLink: "https://taskglyph.vercel.app/",
+    githubLink: "https://github.com/ramanakumar2580/TaskGlyph.git",
+    tags: [
+      "Local-First",
+      "Next.js 15",
+      "IndexedDB",
+      "Dexie.js",
+      "PostgreSQL",
+      "Offline Sync",
+    ],
+  },
+  {
     title: "VeriStamp dApp",
     slug: "veristamp-dapp",
     description:

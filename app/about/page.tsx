@@ -90,7 +90,7 @@ export default function AboutPage() {
             <p className="text-base text-gray-700 dark:text-neutral-300 max-w-4xl leading-relaxed">
               As a versatile developer, I specialize in transforming ideas into
               high-performance web and decentralized applications. I architect
-              and build entire systems from the ground up—from creating
+              and build entire systems from the ground up from creating
               responsive user interfaces with React and Next.js to engineering
               robust backends with Node.js. In the Web3 space, I design and
               deploy secure smart contracts using Solidity and Hardhat, and
