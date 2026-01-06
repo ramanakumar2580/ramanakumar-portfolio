@@ -25,7 +25,7 @@ export const projectsData = [
       "An enterprise-grade Incident Management Platform featuring real-time 'War Rooms', SLA monitoring, and automated escalation pipelines.",
     longDescription:
       "TriaGen is a high-velocity Incident Management System designed to replace static ticketing with a real-time 'War Room' architecture. Built to reduce Mean Time To Resolution (MTTR) for DevOps teams, it leverages a high-performance NestJS backend and Socket.io to broadcast updates assignments, status changes, and comments instantly across all clients without polling. The system features sophisticated backend logic including automated SLA breach detection using BullMQ and Redis, robust Role-Based Access Control (RBAC), and a secure 'Evidence Locker' that directly interfaces with AWS S3 for immutable file storage. Unlike typical CRUD apps, TriaGen demonstrates complete DevOps maturity, the entire architecture is containerized via Docker and deployed to an AWS EC2 production environment through a custom GitHub Actions CI/CD pipeline, ensuring zero-downtime updates and enterprise reliability.",
-    image: "/images/project-Triagen.png",
+    image: "/images/project-TriaGen.png",
     liveLink: "http://40.192.34.253:3000",
     githubLink: "https://github.com/ramanakumar2580/TriaGen.git",
     tags: [
