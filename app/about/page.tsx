@@ -101,7 +101,7 @@ export default function AboutPage() {
             {/* --- UPDATED RESUME BUTTONS --- */}
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <motion.a
-                href="/RamanaKumar-fullstack.pdf"
+                href="/RamanaKumar_fullStack.pdf"
                 download
                 whileHover={{ scale: 1.05, y: -5 }}
                 whileTap={{ scale: 0.95 }}
@@ -127,7 +127,7 @@ export default function AboutPage() {
                 Full Stack Resume
               </motion.a>
               <motion.a
-                href="/RamanaKumar-blockchain.pdf"
+                href="/RamanaKumar_blockchain.pdf"
                 download
                 whileHover={{ scale: 1.05, y: -5 }}
                 whileTap={{ scale: 0.95 }}
