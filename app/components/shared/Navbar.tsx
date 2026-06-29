@@ -10,15 +10,36 @@ import ThemeSwitcher from "./ThemeSwitcher";
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout;
+
     const handleScroll = () => {
       setHasScrolled(window.scrollY > 20);
+
+      // Detect active scrolling
+      if (window.scrollY > 20) {
+        setIsScrolling(true);
+        clearTimeout(scrollTimeout);
+
+        // Revert to normal setup when scrolling pauses for 150ms
+        scrollTimeout = setTimeout(() => {
+          setIsScrolling(false);
+        }, 150);
+      } else {
+        setIsScrolling(false);
+      }
     };
-    window.addEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollTimeout);
+    };
   }, []);
 
   const navItems = [
@@ -39,16 +60,22 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         hasScrolled ? "p-4" : "p-6"
-      }`}
+      } ${isScrolling ? "pointer-events-none" : ""}`}
     >
       <nav
         className={`w-full max-w-7xl mx-auto flex items-center justify-between rounded-2xl h-16 px-6 transition-all duration-300 ${
-          hasScrolled
-            ? "bg-background/80 backdrop-blur-lg border border-border shadow-md"
-            : "bg-transparent border-transparent"
+          !hasScrolled
+            ? "bg-transparent border-transparent"
+            : isScrolling
+              ? "bg-transparent border-transparent opacity-30 backdrop-blur-none shadow-none"
+              : "bg-background/80 backdrop-blur-lg border border-border shadow-md opacity-100"
         }`}
       >
-        <Link href="/" aria-label="Homepage" className="flex">
+        <Link
+          href="/"
+          aria-label="Homepage"
+          className="flex pointer-events-auto"
+        >
           <img
             src="/images/Logo.png"
             alt="Ramana Kumar"
@@ -57,7 +84,7 @@ export function Navbar() {
             style={{ filter: "var(--logo-filter)" }}
           />
         </Link>
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-3 pointer-events-auto">
           {navItems.map((item) => (
             <Link
               key={item.name}
@@ -95,7 +122,7 @@ export function Navbar() {
           </div>
         </div>
 
-        <div className="flex items-center md:hidden">
+        <div className="flex items-center md:hidden pointer-events-auto">
           <button
             onClick={() => setIsOpen(!isOpen)}
             type="button"
@@ -137,8 +164,9 @@ export function Navbar() {
       </nav>
 
       {isOpen && (
-        <div className="md:hidden mt-2 max-w-7xl mx-auto">
-          <div className="px-2 pt-2 pb-3 space-y-1 bg-card/95 backdrop-blur-xl rounded-2xl border border-border shadow-lg">
+        <div className="md:hidden mt-2 max-w-7xl mx-auto pointer-events-auto">
+          {/* Changed bg-card/95 to bg-background/95 to fix the dark mode theme issue */}
+          <div className="px-2 pt-2 pb-3 space-y-1 bg-background/95 backdrop-blur-xl rounded-2xl border border-border shadow-lg">
             {[...navItems, contactItem].map((item) => (
               <Link
                 key={item.name}
