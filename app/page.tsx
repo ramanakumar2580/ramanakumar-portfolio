@@ -690,7 +690,7 @@ export default function HomePage() {
           >
             <div className="relative w-full aspect-video overflow-hidden rounded-sm bg-muted">
               <Image
-                src="/images/project-Taskglyph.png"
+                src="/images/project-TaskGlyph.png"
                 alt="TaskGlyph"
                 fill
                 priority
