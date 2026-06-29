@@ -12,28 +12,31 @@ const themes = [
   { name: "Paper", value: "paper" },
 ];
 
-export default function ThemeSwitcher() {
+// 🚨 UPDATE: Added interface for props
+interface ThemeSwitcherProps {
+  onThemeSelect?: () => void;
+}
+
+export default function ThemeSwitcher({
+  onThemeSelect,
+}: ThemeSwitcherProps = {}) {
   const { theme, setTheme } = useThemeStore();
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Avoid hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Scroll listener for transparency effect and auto-closing
   useEffect(() => {
     let scrollTimeout: NodeJS.Timeout;
-
     const handleScroll = () => {
       if (window.scrollY > 20) {
         setIsScrolling(true);
-        setIsOpen(false); // Auto-close the menu if they start scrolling
+        setIsOpen(false);
         clearTimeout(scrollTimeout);
-
         scrollTimeout = setTimeout(() => {
           setIsScrolling(false);
         }, 150);
@@ -41,16 +44,13 @@ export default function ThemeSwitcher() {
         setIsScrolling(false);
       }
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
       clearTimeout(scrollTimeout);
     };
   }, []);
 
-  // Close the dropdown if the user clicks outside of it
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -65,13 +65,11 @@ export default function ThemeSwitcher() {
   }, []);
 
   if (!mounted) {
-    // Render a sleek circular skeleton while loading
     return <div className="h-9 w-9 bg-muted rounded-full animate-pulse"></div>;
   }
 
   return (
     <div className="relative" ref={dropdownRef}>
-      {/* 1. The Trigger Button (Sleek Circular Icon) */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`flex items-center justify-center h-9 w-9 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/50 ${
@@ -92,7 +90,6 @@ export default function ThemeSwitcher() {
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          {/* A cool Sun/Moon hybrid icon representing 'Themes' */}
           <circle cx="12" cy="12" r="4" />
           <path d="M12 2v2" />
           <path d="M12 20v2" />
@@ -105,7 +102,6 @@ export default function ThemeSwitcher() {
         </svg>
       </button>
 
-      {/* 2. The Custom Floating Dropdown Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -121,7 +117,9 @@ export default function ThemeSwitcher() {
                   key={t.value}
                   onClick={() => {
                     setTheme(t.value as any);
-                    setIsOpen(false); // Close menu after selecting
+                    setIsOpen(false);
+                    // 🚨 UPDATE: Tell the main Navbar to close
+                    if (onThemeSelect) onThemeSelect();
                   }}
                   className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
                     theme === t.value

@@ -18,13 +18,9 @@ export function Navbar() {
 
     const handleScroll = () => {
       setHasScrolled(window.scrollY > 20);
-
-      // Detect active scrolling
       if (window.scrollY > 20) {
         setIsScrolling(true);
         clearTimeout(scrollTimeout);
-
-        // Revert to normal setup when scrolling pauses for 150ms
         scrollTimeout = setTimeout(() => {
           setIsScrolling(false);
         }, 150);
@@ -165,7 +161,6 @@ export function Navbar() {
 
       {isOpen && (
         <div className="md:hidden mt-2 max-w-7xl mx-auto pointer-events-auto">
-          {/* Changed bg-card/95 to bg-background/95 to fix the dark mode theme issue */}
           <div className="px-2 pt-2 pb-3 space-y-1 bg-background/95 backdrop-blur-xl rounded-2xl border border-border shadow-lg">
             {[...navItems, contactItem].map((item) => (
               <Link
@@ -182,13 +177,13 @@ export function Navbar() {
               </Link>
             ))}
 
-            {/* Mobile Theme Switcher */}
             <div className="px-4 py-3 mt-2 border-t border-border flex items-center justify-between">
               <span className="text-sm font-medium text-muted-foreground">
                 Theme
               </span>
               <div className="transform scale-90 origin-right">
-                <ThemeSwitcher />
+                {/* 🚨 UPDATE: Added onThemeSelect prop to tell Navbar to close */}
+                <ThemeSwitcher onThemeSelect={() => setIsOpen(false)} />
               </div>
             </div>
           </div>
