@@ -1,22 +1,22 @@
 export function Footer() {
   return (
-    <footer className="w-full px-3 py-2 border-t border-black/10 dark:border-white/10">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-        <p className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
-          © 2025 &mdash; Built by Ramanakumar ❤️
+    <footer className="w-full px-4 py-3 border-t border-border bg-transparent">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
+        <p className="text-sm font-medium text-muted-foreground whitespace-nowrap">
+          © 2026 &mdash; Built by Ramanakumar ❤️
         </p>
 
-        <div className="flex items-center space-x-1">
+        <div className="flex items-center space-x-2">
           <a
             href="https://github.com/ramanakumar2580"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="p-2 rounded-full text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300"
+            className="p-2.5 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-300 outline-none focus:ring-2 focus:ring-primary"
           >
             <svg
-              /* GitHub Icon */ width="18"
-              height="18"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -32,11 +32,11 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="p-2 rounded-full text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300"
+            className="p-2.5 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-300 outline-none focus:ring-2 focus:ring-primary"
           >
             <svg
-              /* LinkedIn Icon */ width="18"
-              height="18"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -54,10 +54,10 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="X"
-            className="p-2 rounded-full text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300"
+            className="p-2.5 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-300 outline-none focus:ring-2 focus:ring-primary"
           >
             <svg
-              /* X Icon */ width="18"
+              width="18" // X icon is naturally slightly bulkier, kept at 18 so it visually balances with the 20px stroked icons
               height="18"
               viewBox="0 0 24 24"
               fill="currentColor"

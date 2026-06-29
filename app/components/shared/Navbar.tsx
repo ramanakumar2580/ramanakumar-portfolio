@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,6 @@ export function Navbar() {
 
   const navItems = [
     { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
     { name: "Projects", href: "/projects" },
   ];
 
@@ -44,36 +44,35 @@ export function Navbar() {
       <nav
         className={`w-full max-w-7xl mx-auto flex items-center justify-between rounded-2xl h-16 px-6 transition-all duration-300 ${
           hasScrolled
-            ? "bg-white/80 dark:bg-neutral-900/60 backdrop-blur-lg border border-gray-200 dark:border-neutral-800 shadow-md"
+            ? "bg-background/80 backdrop-blur-lg border border-border shadow-md"
             : "bg-transparent border-transparent"
         }`}
       >
         <Link href="/" aria-label="Homepage" className="flex">
-          <Image
+          <img
             src="/images/Logo.png"
             alt="Ramana Kumar"
             width={50}
             height={50}
-            className="invert dark:invert-0"
-            priority
+            style={{ filter: "var(--logo-filter)" }}
           />
         </Link>
-        <div className="hidden md:flex items-center gap-2">
+        <div className="hidden md:flex items-center gap-3">
           {navItems.map((item) => (
             <Link
               key={item.name}
               href={item.href}
               className={`relative px-4 py-2 text-sm font-medium transition-colors ${
                 isActive(item.href)
-                  ? "text-black dark:text-white"
-                  : "text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white"
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {item.name}
               {isActive(item.href) && (
                 <motion.span
                   layoutId="underline"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-black dark:bg-white rounded-full"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-foreground rounded-full"
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 />
               )}
@@ -83,18 +82,24 @@ export function Navbar() {
             href={contactItem.href}
             className={`px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all duration-300 ${
               isActive(contactItem.href)
-                ? "bg-black text-white dark:bg-white dark:text-black"
-                : "bg-transparent border-black/20 text-black dark:border-white/20 dark:text-white hover:bg-black/5 dark:hover:bg-white/10"
+                ? "bg-primary text-primary-foreground"
+                : "bg-transparent border-border text-foreground hover:bg-muted"
             }`}
           >
             {contactItem.name}
           </Link>
+
+          {/* Desktop Theme Switcher */}
+          <div className="ml-1 pl-3 border-l border-border flex items-center">
+            <ThemeSwitcher />
+          </div>
         </div>
+
         <div className="flex items-center md:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
             type="button"
-            className="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-white/30 dark:hover:bg-black/20 focus:outline-none transition-colors"
+            className="p-2 rounded-full text-muted-foreground hover:bg-muted focus:outline-none transition-colors"
             aria-controls="mobile-menu"
           >
             <span className="sr-only">Open main menu</span>
@@ -130,9 +135,10 @@ export function Navbar() {
           </button>
         </div>
       </nav>
+
       {isOpen && (
         <div className="md:hidden mt-2 max-w-7xl mx-auto">
-          <div className="px-2 pt-2 pb-3 space-y-1 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-neutral-800 shadow-lg">
+          <div className="px-2 pt-2 pb-3 space-y-1 bg-card/95 backdrop-blur-xl rounded-2xl border border-border shadow-lg">
             {[...navItems, contactItem].map((item) => (
               <Link
                 key={item.name}
@@ -140,13 +146,23 @@ export function Navbar() {
                 onClick={() => setIsOpen(false)}
                 className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
                   isActive(item.href)
-                    ? "text-black dark:text-white bg-gray-200 dark:bg-neutral-800"
-                    : "text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
+                    ? "text-foreground bg-muted"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                 }`}
               >
                 {item.name}
               </Link>
             ))}
+
+            {/* Mobile Theme Switcher */}
+            <div className="px-4 py-3 mt-2 border-t border-border flex items-center justify-between">
+              <span className="text-sm font-medium text-muted-foreground">
+                Theme
+              </span>
+              <div className="transform scale-90 origin-right">
+                <ThemeSwitcher />
+              </div>
+            </div>
           </div>
         </div>
       )}

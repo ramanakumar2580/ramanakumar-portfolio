@@ -1,174 +1,266 @@
 "use client";
 
 import { useState } from "react";
-import { motion, Variants } from "framer-motion";
-
-const staggerContainer: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const staggerItem: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
-    },
-  },
-};
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ContactPage() {
-  const [status, setStatus] = useState("");
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormState({
+      ...formState,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const submitButton = event.currentTarget.querySelector(
-      'button[type="submit"]'
-    );
-    if (submitButton) {
-      submitButton.setAttribute("disabled", "true");
-    }
-    setStatus("Sending...");
-
-    const formData = new FormData(event.currentTarget);
-    const data = Object.fromEntries(formData.entries());
+    setStatus("loading");
 
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formState),
       });
 
       if (response.ok) {
-        setStatus("Message sent successfully!");
-        (event.target as HTMLFormElement).reset();
+        setStatus("success");
+        setFormState({ name: "", email: "", message: "" });
       } else {
         const errorData = await response.json();
-        setStatus(
-          `Error: ${errorData.error?.message || "Something went wrong."}`
-        );
+        setErrorMessage(errorData.error?.message || "Failed to send message.");
+        setStatus("error");
       }
     } catch (error) {
-      if (error instanceof Error) {
-        setStatus(`Error: ${error.message}`);
-      } else {
-        setStatus("An unknown error occurred while sending the message.");
-      }
+      setErrorMessage(
+        error instanceof Error ? error.message : "Network error occurred.",
+      );
+      setStatus("error");
     } finally {
-      if (submitButton) {
-        submitButton.removeAttribute("disabled");
-      }
-      setTimeout(() => setStatus(""), 5000); // Clear status after 5 seconds
+      setTimeout(() => setStatus("idle"), 5000);
     }
   }
 
   return (
-    <div className="w-full flex items-start justify-center pt-24 pb-16">
-      <div className="max-w-4xl w-full mx-auto px-4">
+    <div className="min-h-screen w-full bg-transparent text-foreground flex items-center justify-center pt-32 pb-20 px-6 md:px-12 lg:px-24 selection:bg-primary/20">
+      <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+        {/* Left Column: Personal Brand & Intent */}
         <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl shadow-lg p-8 md:p-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col justify-center space-y-8"
         >
-          <motion.div variants={staggerItem} className="text-left">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="36"
-              height="36"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1"
-              className="text-gray-800 dark:text-white mb-4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
-            <h1 className="text-4xl font-bold text-black dark:text-white">
-              Contact Me
-            </h1>
-            <p className="mt-2 text-gray-600 dark:text-neutral-400">
-              Have a question or want to work together? Fill out the form below
-              and I will get back to you as soon as possible.
-            </p>
-          </motion.div>
-
-          <motion.form
-            variants={staggerContainer}
-            onSubmit={handleSubmit}
-            className="mt-8 space-y-6"
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <motion.div variants={staggerItem}>
-                <label htmlFor="name" className="sr-only">
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  required
-                  placeholder="Your Name"
-                  className="w-full bg-white/50 dark:bg-black/20 border border-gray-300 dark:border-neutral-700 text-black dark:text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-black/50 dark:focus:ring-white/50 focus:border-black/50 dark:focus:border-white/50 outline-none transition-all"
-                />
-              </motion.div>
-              <motion.div variants={staggerItem}>
-                <label htmlFor="email" className="sr-only">
-                  Your email address
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  required
-                  placeholder="Your email address"
-                  className="w-full bg-white/50 dark:bg-black/20 border border-gray-300 dark:border-neutral-700 text-black dark:text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-black/50 dark:focus:ring-white/50 focus:border-black/50 dark:focus:border-white/50 outline-none transition-all"
-                />
-              </motion.div>
+          <div>
+            <div className="inline-flex items-center space-x-2 bg-muted/50 border border-border/50 px-3.5 py-1.5 rounded-full text-xs font-bold text-foreground mb-8 tracking-wide uppercase shadow-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span>Available for new opportunities</span>
             </div>
-            <motion.div variants={staggerItem}>
-              <label htmlFor="message" className="sr-only">
-                Your Message
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
+              Let's engineer <br />
+              <span className="text-muted-foreground">something great.</span>
+            </h1>
+
+            <p className="text-muted-foreground text-lg leading-relaxed max-w-md">
+              Whether you are looking to scale your engineering team, build a
+              robust full-stack application, or optimize existing architecture,
+              I'm ready to collaborate.
+            </p>
+          </div>
+
+          <div className="pt-4 flex flex-col space-y-4">
+            <p className="text-sm font-bold tracking-widest text-muted-foreground uppercase">
+              Direct Contact
+            </p>
+            <a
+              href="mailto:manupatiramanakumar106@gmail.com"
+              className="group flex items-center space-x-4 text-left w-max outline-none"
+            >
+              <span className="text-xl md:text-2xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                Send an Email
+              </span>
+              <span className="p-3 bg-muted/50 rounded-xl border border-border/50 group-hover:bg-muted transition-colors shadow-sm">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-muted-foreground group-hover:text-primary transition-all group-hover:translate-x-1 group-hover:-translate-y-1 duration-300"
+                >
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </motion.div>
+
+        {/* Right Column: The Engineered Form */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col justify-center"
+        >
+          <form
+            onSubmit={handleSubmit}
+            className="w-full space-y-8 bg-card/40 backdrop-blur-md p-8 md:p-10 rounded-3xl border border-border/50 shadow-xl"
+          >
+            <div className="group relative">
+              <input
+                type="text"
+                name="name"
+                id="name"
+                required
+                value={formState.name}
+                onChange={handleChange}
+                placeholder=" "
+                className="peer w-full bg-transparent border-b-2 border-border/60 text-foreground text-lg py-4 focus:outline-none focus:border-primary transition-colors"
+              />
+              <label
+                htmlFor="name"
+                className="absolute left-0 top-4 text-muted-foreground text-lg transition-all peer-focus:-top-3 peer-focus:text-xs peer-focus:text-primary peer-[:not(:placeholder-shown)]:-top-3 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-foreground cursor-text"
+              >
+                What's your name?
               </label>
+            </div>
+
+            <div className="group relative">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                required
+                value={formState.email}
+                onChange={handleChange}
+                placeholder=" "
+                className="peer w-full bg-transparent border-b-2 border-border/60 text-foreground text-lg py-4 focus:outline-none focus:border-primary transition-colors"
+              />
+              <label
+                htmlFor="email"
+                className="absolute left-0 top-4 text-muted-foreground text-lg transition-all peer-focus:-top-3 peer-focus:text-xs peer-focus:text-primary peer-[:not(:placeholder-shown)]:-top-3 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-foreground cursor-text"
+              >
+                Your email address
+              </label>
+            </div>
+
+            <div className="group relative">
               <textarea
                 name="message"
                 id="message"
                 required
-                rows={5}
-                placeholder="Your Message"
-                className="w-full bg-white/50 dark:bg-black/20 border border-gray-300 dark:border-neutral-700 text-black dark:text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-black/50 dark:focus:ring-white/50 focus:border-black/50 dark:focus:border-white/50 outline-none transition-all"
-              ></textarea>
-            </motion.div>
-            <motion.div variants={staggerItem}>
-              <motion.button
-                type="submit"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                className="group relative w-full px-6 py-3 font-semibold text-white bg-gray-800 rounded-xl shadow-lg hover:bg-gray-700 transition-colors duration-300 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+                rows={4}
+                value={formState.message}
+                onChange={handleChange}
+                placeholder=" "
+                className="peer w-full bg-transparent border-b-2 border-border/60 text-foreground text-lg py-4 focus:outline-none focus:border-primary transition-colors resize-none custom-scrollbar"
+              />
+              <label
+                htmlFor="message"
+                className="absolute left-0 top-4 text-muted-foreground text-lg transition-all peer-focus:-top-3 peer-focus:text-xs peer-focus:text-primary peer-[:not(:placeholder-shown)]:-top-3 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-foreground cursor-text"
               >
-                <div className="absolute top-0 left-[-100%] h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:left-[100%] transition-all duration-700" />
-                Submit
-              </motion.button>
-            </motion.div>
-            {status && (
-              <p className="text-center text-sm text-gray-500 dark:text-neutral-400 mt-4">
-                {status}
-              </p>
+                Tell me about your project or role...
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              disabled={status === "loading" || status === "success"}
+              className="w-full md:w-auto px-10 py-4 bg-foreground text-background font-bold text-sm rounded-full hover:scale-105 hover:shadow-xl active:scale-95 transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center min-w-[180px] outline-none focus:ring-2 focus:ring-offset-2 focus:ring-foreground dark:focus:ring-offset-background"
+            >
+              <AnimatePresence mode="wait">
+                {status === "idle" && (
+                  <motion.span
+                    key="idle"
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                  >
+                    Send Message
+                  </motion.span>
+                )}
+                {status === "loading" && (
+                  <motion.span
+                    key="loading"
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    className="flex items-center gap-2"
+                  >
+                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                        fill="none"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      />
+                    </svg>
+                    Processing
+                  </motion.span>
+                )}
+                {status === "success" && (
+                  <motion.span
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="text-emerald-500 dark:text-emerald-400 flex items-center gap-2"
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    Sent Successfully
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </button>
+
+            {status === "error" && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-red-500 font-medium text-sm mt-4"
+              >
+                {errorMessage}
+              </motion.p>
             )}
-          </motion.form>
+          </form>
         </motion.div>
       </div>
     </div>

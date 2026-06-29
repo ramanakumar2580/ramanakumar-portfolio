@@ -1,153 +1,124 @@
 "use client";
 
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-  Variants,
-} from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { projectsData } from "@/lib/data"; // Make sure your data is saved here
-import { useRef } from "react";
-
-// --- FIX: Defined constants at the top to avoid ReferenceError ---
-const CARD_WIDTH = 400;
-const CARD_HEIGHT = 400;
-
-const pageContainerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
-    },
-  },
-};
-
-function ProjectCard({ project }: { project: (typeof projectsData)[0] }) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-    const { left, top, width, height } = ref.current.getBoundingClientRect();
-    // Calculate mouse position relative to center of card
-    mouseX.set(e.clientX - left - width / 2);
-    mouseY.set(e.clientY - top - height / 2);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
-
-  const springConfig = { stiffness: 200, damping: 30 };
-
-  // Magnetic effect logic
-  const magneticX = useSpring(
-    useTransform(mouseX, [-CARD_WIDTH / 2, CARD_WIDTH / 2], [-15, 15]),
-    springConfig
-  );
-  const magneticY = useSpring(
-    useTransform(mouseY, [-CARD_HEIGHT / 2, CARD_HEIGHT / 2], [-15, 15]),
-    springConfig
-  );
-
-  // Dynamic gradient background
-  const background = useTransform(
-    [mouseX, mouseY],
-    ([x, y]: number[]) =>
-      `radial-gradient(300px at ${x + CARD_WIDTH / 2}px ${y + CARD_HEIGHT / 2}px, rgba(255, 255, 255, 0.1), transparent 80%)`
-  );
-
-  return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ x: magneticX, y: magneticY }}
-      className="relative group h-full" // Added h-full to ensure equal heights in grid
-      variants={itemVariants}
-    >
-      <Link href={`/projects/${project.slug}`} className="block h-full">
-        <div className="relative bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl shadow-lg h-full overflow-hidden transition-all duration-300 group-hover:border-white/40 group-hover:dark:border-white/20 group-hover:shadow-2xl flex flex-col">
-          {/* Spotlight Gradient Overlay */}
-          <motion.div
-            className="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"
-            style={{ background }}
-          />
-
-          <div className="relative w-full h-48 shrink-0 overflow-hidden">
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-cover group-hover:scale-110 transition-transform duration-500"
-            />
-          </div>
-          <div className="p-6 flex flex-col grow">
-            <h3 className="text-xl font-bold text-black dark:text-white mb-2">
-              {project.title}
-            </h3>
-            <p className="text-gray-700 dark:text-neutral-300 text-sm mb-4 line-clamp-3">
-              {project.description}
-            </p>
-            <div className="mt-auto flex items-center text-sm font-semibold text-gray-600 dark:text-neutral-400 transition-all duration-300 group-hover:text-black dark:group-hover:text-white">
-              View Project
-              <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
-            </div>
-          </div>
-        </div>
-      </Link>
-    </motion.div>
-  );
-}
+import { projectsData } from "@/lib/data";
 
 export default function ProjectsPage() {
   return (
-    <div className="w-full pt-24 pb-16 min-h-screen">
-      <motion.div
-        className="max-w-7xl mx-auto px-4"
-        variants={pageContainerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.div variants={itemVariants} className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-black dark:text-white">
-            My Projects
+    <div className="w-full pt-28 pb-32 min-h-screen bg-background transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Page Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="mb-24 md:mb-32 max-w-3xl"
+        >
+          <h1 className="text-5xl md:text-6xl font-extrabold text-foreground tracking-tight mb-6">
+            Featured <span className="text-muted-foreground">Works.</span>
           </h1>
-          <p className="mt-4 text-lg text-gray-600 dark:text-neutral-400">
-            A selection of my work. Feel free to explore.
+          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+            A curated selection of production-grade software. Built with a
+            strict focus on robust architectures, performance, and seamless user
+            experiences.
           </p>
         </motion.div>
 
-        <motion.div
-          variants={pageContainerVariants}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {projectsData.map((project) => (
-            <ProjectCard key={project.title} project={project} />
-          ))}
-        </motion.div>
-      </motion.div>
+        {/* Projects List - Alternating Layout */}
+        <div className="flex flex-col gap-32 md:gap-40">
+          {projectsData.map((project, index) => {
+            const isReversed = index % 2 !== 0;
+
+            return (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                className={`flex flex-col gap-10 lg:gap-16 items-center ${
+                  isReversed ? "lg:flex-row-reverse" : "lg:flex-row"
+                }`}
+              >
+                {/* 50% - Image Side */}
+                <div className="w-full lg:w-1/2 group">
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="block outline-none"
+                  >
+                    <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border border-border/50 shadow-lg bg-card transition-all duration-500 group-hover:shadow-2xl group-hover:border-foreground/20">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 45vw, 600px"
+                        className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                      />
+                      {/* Subtle overlay to make it look embedded */}
+                      <div className="absolute inset-0 ring-1 ring-inset ring-foreground/5 rounded-2xl pointer-events-none transition-colors duration-500 group-hover:ring-foreground/10" />
+                    </div>
+                  </Link>
+                </div>
+
+                {/* 50% - Text/Details Side */}
+                <div className="w-full lg:w-1/2 flex flex-col items-start">
+                  {/* Hackathon Badge (if exists) */}
+                  {project.achievement && (
+                    <div className="mb-5 inline-flex items-center px-3.5 py-1.5 rounded-full bg-foreground text-background text-xs font-bold tracking-wide uppercase shadow-sm">
+                      {project.achievement}
+                    </div>
+                  )}
+
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 transition-colors">
+                    {project.title}
+                  </h2>
+
+                  <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-8">
+                    {project.description}
+                  </p>
+
+                  {/* Tech Stack Chips */}
+                  <div className="flex flex-wrap gap-2 mb-10">
+                    {project.tags.map((tag: string) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1.5 rounded-md bg-muted/50 text-foreground text-sm font-medium border border-border/50 transition-colors hover:bg-muted"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Premium Inverted Explore Button with sleek animation */}
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="group relative inline-flex items-center justify-center px-8 py-3.5 bg-foreground text-background text-sm font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 outline-none focus:ring-2 focus:ring-offset-2 focus:ring-foreground dark:focus:ring-offset-background"
+                  >
+                    <span className="relative z-10 flex items-center">
+                      Explore Project
+                      <svg
+                        className="ml-2 w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2.5}
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        />
+                      </svg>
+                    </span>
+                  </Link>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

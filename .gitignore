@@ -9,3 +9,4 @@ out/
 # Env & other secrets
 .env.local
 node_modules
+.env
