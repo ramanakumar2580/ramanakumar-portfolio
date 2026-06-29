@@ -70,17 +70,16 @@ export default function ContactPage() {
               </span>
               <span>Available for new opportunities</span>
             </div>
-
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
               Let's engineer <br />
               <span className="text-muted-foreground">something great.</span>
             </h1>
-
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-md">
-              Whether you are looking to scale your engineering team, build a
-              robust full-stack application, or optimize existing architecture,
-              I'm ready to collaborate.
-            </p>
+            <p className="text-muted-foreground text-lg leading-relaxed max-w-md"></p>
+            I'm looking for opportunities where I can build products that solve
+            real problems, work with strong engineering teams, and continue
+            growing as a software engineer. If you're hiring someone who enjoys
+            building scalable full-stack applications and learning quickly, I'd
+            love to connect.
           </div>
 
           <div className="pt-4 flex flex-col space-y-4">
@@ -178,7 +177,8 @@ export default function ContactPage() {
                 htmlFor="message"
                 className="absolute left-0 top-4 text-muted-foreground text-lg transition-all peer-focus:-top-3 peer-focus:text-xs peer-focus:text-primary peer-[:not(:placeholder-shown)]:-top-3 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-foreground cursor-text"
               >
-                Tell me about your project or role...
+                Tell me about the opportunity or anything you'd like to
+                discuss...
               </label>
             </div>
 

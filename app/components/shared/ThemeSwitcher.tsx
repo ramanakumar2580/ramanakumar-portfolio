@@ -16,11 +16,38 @@ export default function ThemeSwitcher() {
   const { theme, setTheme } = useThemeStore();
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Avoid hydration mismatch
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  // Scroll listener for transparency effect and auto-closing
+  useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout;
+
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setIsScrolling(true);
+        setIsOpen(false); // Auto-close the menu if they start scrolling
+        clearTimeout(scrollTimeout);
+
+        scrollTimeout = setTimeout(() => {
+          setIsScrolling(false);
+        }, 150);
+      } else {
+        setIsScrolling(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollTimeout);
+    };
   }, []);
 
   // Close the dropdown if the user clicks outside of it
@@ -47,7 +74,11 @@ export default function ThemeSwitcher() {
       {/* 1. The Trigger Button (Sleek Circular Icon) */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-center h-9 w-9 rounded-full bg-transparent border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
+        className={`flex items-center justify-center h-9 w-9 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/50 ${
+          isScrolling
+            ? "bg-transparent border-transparent text-muted-foreground/30 pointer-events-none"
+            : "bg-transparent border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
+        }`}
         aria-label="Toggle theme"
       >
         <svg
@@ -82,7 +113,7 @@ export default function ThemeSwitcher() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.95 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute right-0 mt-2 w-36 bg-card border border-border rounded-xl shadow-lg overflow-hidden z-50"
+            className="absolute right-0 mt-2 w-36 bg-background/80 backdrop-blur-lg border border-border rounded-xl shadow-lg overflow-hidden z-50"
           >
             <div className="py-1 flex flex-col">
               {themes.map((t) => (
@@ -95,7 +126,7 @@ export default function ThemeSwitcher() {
                   className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
                     theme === t.value
                       ? "bg-primary/10 text-primary font-medium"
-                      : "text-card-foreground hover:bg-muted hover:text-foreground"
+                      : "text-foreground/80 hover:bg-muted hover:text-foreground"
                   }`}
                 >
                   {t.name}

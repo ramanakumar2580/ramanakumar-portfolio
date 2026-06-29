@@ -361,11 +361,12 @@ export default function HomePage() {
               Let&apos;s Talk
             </Link>
             <a
-              href="/RamanaKumar_FullStackResume.pdf"
+              href="/Ramanakumar_SDE_Resume.pdf"
               target="_blank"
+              rel="noopener noreferrer"
               className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-3.5 bg-background border border-border text-foreground rounded-sm font-medium hover:bg-muted transition-colors"
             >
-              Download CV <Download className="w-4 h-4" />
+              Download Resume <Download className="w-4 h-4" />
             </a>
           </div>
         </div>
@@ -689,7 +690,7 @@ export default function HomePage() {
           >
             <div className="relative w-full aspect-video overflow-hidden rounded-sm bg-muted">
               <Image
-                src="/images/project-taskglyph.png"
+                src="/images/project-Taskglyph.png"
                 alt="TaskGlyph"
                 fill
                 priority
