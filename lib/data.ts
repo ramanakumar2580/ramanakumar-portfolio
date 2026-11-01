@@ -69,7 +69,7 @@ export const projectsData = [
     description:
       "A real-time incident management platform that helps remote engineering teams collaborate, track production issues, and coordinate incident response from a single workspace.",
     image: "/images/project-TriaGen.png",
-    liveLink: "https://triagen.40.192.34.253.sslip.io",
+    liveLink: "https://triagen.16.176.173.35.sslip.io/",
     githubLink: "https://github.com/ramanakumar2580/TriaGen.git",
     tags: [
       "NestJS",
